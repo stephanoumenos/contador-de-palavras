@@ -6,14 +6,24 @@
  */
 
 #include <stdio.h>
+#include <inttypes.h>
 
 int main()
 {
   char c;
+  unsigned int tamanho = 0;
 
   while (c != '\n'){
     scanf("%c", &c);
+    if( (c>='a' && c<='z') || (c>='A' && c<='Z') ){
+    /*! Se é uma letra */
+
+    } else{ ///< É um espaço/ponto/virgula/caracter de uma lingua estranha
+
+    }
   }
-  printf("1\n");
+
+  printf("%u", tamanho);
+
   return 0;
 }
