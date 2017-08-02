@@ -12,7 +12,7 @@ int main()
 {
   char c;
   unsigned int tamanho = 0;
-  uint8_t separadores = 1;
+  uint8_t separadores = 1, ultimo_foi_numero = 0;
 
   while (c != '\n'){
     scanf("%c", &c);
@@ -22,9 +22,20 @@ int main()
             tamanho++;
             separadores = 0;
         }
+        if(c>='0' && c<='9')
+            ultimo_foi_numero = 1;
 
     } else{ ///< É um espaço/ponto/virgula/caracter de uma lingua estranha
-        separadores = 1;
+        if(c!='.' && c!=','){
+            separadores = 1;
+            if( ultimo_foi_numero )
+                ultimo_foi_numero = 0;
+        } else{
+            if( ! ultimo_foi_numero )
+                separadores = 1;
+            else
+                ultimo_foi_numero = 0;
+        }
     }
   }
 
