@@ -7,16 +7,13 @@
 
 #include <stdio.h>
 
-int main() {
-
+int main()
+{
   char c;
 
-  c = 1;
-
-  while (c != '\n') {
+  while (c != '\n'){
     scanf("%c", &c);
   }
-
   printf("1\n");
   return 0;
 }
