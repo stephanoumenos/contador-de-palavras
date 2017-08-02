@@ -12,10 +12,12 @@ int main()
 {
   char c;
   unsigned int tamanho = 0;
-  uint8_t separadores = 1, ultimo_foi_numero = 0;
+  uint8_t separadores = 1, ultimo_foi_numero = 0, ultimo_foi_ponto = 0;
 
-  while (c != '\n'){
+  while (1){
     scanf("%c", &c);
+    if(c=='\n')
+        break;
     if( (c>='a' && c<='z') || (c>='A' && c<='Z') || (c>='0' && c<='9') ){
     /*! Se é uma letra/numero */
         if( separadores ){
@@ -24,17 +26,24 @@ int main()
         }
         if(c>='0' && c<='9')
             ultimo_foi_numero = 1;
+        else
+            if( ultimo_foi_ponto ){
+                ultimo_foi_ponto = 0;
+                tamanho++;
+            }
 
     } else{ ///< É um espaço/ponto/virgula/caracter de uma lingua estranha
         if(c!='.' && c!=','){
             separadores = 1;
             if( ultimo_foi_numero )
                 ultimo_foi_numero = 0;
+            if( ultimo_foi_ponto )
+                ultimo_foi_ponto = 0;
         } else{
             if( ! ultimo_foi_numero )
                 separadores = 1;
             else
-                ultimo_foi_numero = 0;
+                ultimo_foi_ponto = 1;
         }
     }
   }
