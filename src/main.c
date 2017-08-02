@@ -12,7 +12,8 @@ int main()
 {
   char c;
   unsigned int tamanho = 0;
-  uint8_t separadores = 1, ultimo_foi_numero = 0, ultimo_foi_ponto = 0;
+  uint8_t separadores = 1; ///< FLAG para indicar se há um separador de palavras
+  uint8_t ultimo_foi_numero = 0, ultimo_foi_ponto = 0; ///< Para contornar casos especiais
 
   while (1){
     scanf("%c", &c);
@@ -22,11 +23,11 @@ int main()
     /*! Se é uma letra/numero */
         if( separadores ){
             tamanho++;
-            separadores = 0;
+            separadores = 0; ///< Limpa pendência
         }
         if(c>='0' && c<='9')
             ultimo_foi_numero = 1;
-        else
+        else ///< Se não é um numero, começa a contar nova palavra
             if( ultimo_foi_ponto ){
                 ultimo_foi_ponto = 0;
                 tamanho++;
@@ -35,13 +36,12 @@ int main()
     } else{ ///< É um espaço/ponto/virgula/caracter de uma lingua estranha
         if(c!='.' && c!=','){
             separadores = 1;
-            if( ultimo_foi_numero )
-                ultimo_foi_numero = 0;
-            if( ultimo_foi_ponto )
-                ultimo_foi_ponto = 0;
+            /*! Limpa pendências */
+            ultimo_foi_numero = 0;
+            ultimo_foi_ponto = 0;
         } else{
             if( ! ultimo_foi_numero )
-                separadores = 1;
+                separadores = 1; ///< Não é pra numeros decimais
             else
                 ultimo_foi_ponto = 1;
         }
@@ -49,6 +49,5 @@ int main()
   }
 
   printf("%u", tamanho);
-
   return 0;
 }
